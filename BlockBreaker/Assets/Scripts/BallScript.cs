@@ -10,6 +10,8 @@ public class BallScript : MonoBehaviour {
     [SerializeField] float ballY = 15f;
     Vector2 paddleToBallVector;
     bool hasBegun = false;
+    bool slowTime;
+    float slowCountdown = 3f;
 	// Use this for initialization
 
 	void Start () {
@@ -24,9 +26,30 @@ public class BallScript : MonoBehaviour {
             lockBallToPaddle();
             launchBall();
         }
-    }
+        if (slowTime == true)
+        {
+            Debug.Log("anjka");
 
-    private void launchBall()
+            slowCountdown -= 1f * Time.deltaTime;
+            Debug.Log(slowCountdown);
+            if (slowCountdown <0)
+            {
+                Time.timeScale = 1f;
+            }
+         }
+
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "slowPowerUp")
+        {
+            Debug.Log("a");
+            Destroy(collision.gameObject);
+            Time.timeScale = 0.5f;
+            slowTime = true;
+        }
+    }
+        private void launchBall()
     {
         if (Input.GetMouseButtonDown(0))
         {
