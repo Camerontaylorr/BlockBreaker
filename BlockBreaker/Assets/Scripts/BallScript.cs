@@ -11,7 +11,7 @@ public class BallScript : MonoBehaviour {
     Vector2 paddleToBallVector;
     bool hasBegun = false;
     bool slowTime;
-    float slowCountdown = 3f;
+    float slowCountdown = 1f;
 	// Use this for initialization
 
 	void Start () {
@@ -25,16 +25,19 @@ public class BallScript : MonoBehaviour {
         {
             lockBallToPaddle();
             launchBall();
+      //     Debug.Log(slowTime);
+       //     Debug.Log(Time.timeScale);
+
         }
         if (slowTime == true)
         {
-            Debug.Log("anjka");
-
+            Debug.Log(slowTime);
+         //   Debug.Log(Time.timeScale);
             slowCountdown -= 1f * Time.deltaTime;
-            Debug.Log(slowCountdown);
-            if (slowCountdown <0)
+        //    Debug.Log(slowCountdown);
+            if (slowCountdown < 0)
             {
-                Time.timeScale = 1f;
+                Time.timeScale = 0.5f;
             }
          }
 
@@ -45,7 +48,7 @@ public class BallScript : MonoBehaviour {
         {
             Debug.Log("a");
             Destroy(collision.gameObject);
-            Time.timeScale = 0.5f;
+            Time.timeScale = 0.2f;
             slowTime = true;
         }
     }
